@@ -1,5 +1,4 @@
 use std::process;
-use std::mem;
 
 // DO NOT CHANGE THESE VALUES
 static DECK_LENGTH: u8 = 52;
@@ -57,20 +56,41 @@ impl Deck {
 
         let cards = Vec::new();
 
-        for i in 1..DECK_LENGTH+1 {
-
+        for i in 0..DECK_LENGTH {
             let suit: Suit = match i {
                 0..13 => Suit::Club,
-                14..26 => Suit::Diamond,
-                27..39 => Suit::Heart,
-                40..52 => Suit::Spade,
+                13..26 => Suit::Diamond,
+                26..39 => Suit::Heart,
+                39..52 => Suit::Spade,
+                _ => {
+                    eprintln!("Error building deck");
+                    process::exit(-1);
+                }
             };
 
-            println!("{i}");
+            let val: Value = match i % NUM_VALUES  {
+                0 => Value::Two,
+                1 => Value::Three,
+                2 => Value::Four,
+                3 => Value::Five,
+                4 => Value::Six,
+                5 => Value::Seven,
+                6 => Value::Eight,
+                7 => Value::Nine,
+                8 => Value::Ten,
+                9 => Value::Jack,
+                10 => Value::Queen,
+                11 => Value::King,
+                12 => Value::Ace,
+                _ => {
+                    eprintln!("Error building deck");
+                    process::exit(-1);
+                }
+            };
 
+            
+            println!("{i}, {:?}, {:?}", suit, val);
 
-            let
-            if i % NUM_VALUES
         }
 
         Ok(Deck { cards })
