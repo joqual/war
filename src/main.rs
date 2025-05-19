@@ -2,11 +2,9 @@ use std::process;
 use war::Deck;
 
 fn main() {
-    println!("The War has begun.");
+    println!("Building decks ...");
 
-    println!("Press enter to draw.");
-
-    let my_deck: war::Deck = match Deck::build() {
+    let mut hero_deck: Deck = match Deck::build() {
         Ok(d) => d,
         Err(_) => {
             eprintln!("Error: failed to build deck.");
@@ -14,5 +12,10 @@ fn main() {
         }
     };
 
-    println!("{:?}", my_deck.cards[0])
+    let mut villain_deck: Deck = hero_deck.clone();
+
+    println!{"Shuffling decks ..."}
+    Deck::shuffle(&mut hero_deck.cards);
+    Deck::shuffle(&mut villain_deck.cards);
+
 }

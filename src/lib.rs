@@ -5,7 +5,7 @@ use std::process;
 static DECK_LENGTH: u8 = 52;
 static NUM_VALUES: u8 = 13;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Suit {
     Heart,
     Spade,
@@ -13,7 +13,7 @@ pub enum Suit {
     Club,
 }
 
-#[derive(PartialEq, PartialOrd, Debug)]
+#[derive(PartialEq, PartialOrd, Debug, Clone, Copy)]
 pub enum Value {
     Two,
     Three,
@@ -30,15 +30,13 @@ pub enum Value {
     Ace,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Deck {
     pub cards: Vec<Card>,
 }
 
 impl Deck {
     pub fn build() -> Result<Deck, &'static str> {
-        println!("Build the deck ...");
-
         let mut cards = Vec::new();
 
         for i in 0..DECK_LENGTH {
@@ -77,24 +75,18 @@ impl Deck {
                 suit: suit,
                 value: val,
             });
-
-            Self::shuffle(&mut cards);
-
-            // for i in &cards {
-            //     println!("{:?}", i);
-            // }
         }
 
         Ok(Deck { cards })
     }
 
-    fn shuffle(cards: &mut Vec<Card>) {
+    pub fn shuffle(cards: &mut Vec<Card>) {
         let mut rng = rand::rng();
         cards.shuffle(&mut rng)
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Card {
     pub suit: Suit,
     pub value: Value,
