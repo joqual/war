@@ -13,6 +13,10 @@ pub enum Suit {
     Club,
 }
 
+impl Suit {
+    const ALL: [Suit; 4] = [Suit::Heart, Suit::Spade, Suit::Diamond, Suit::Club];
+}
+
 #[derive(PartialEq, PartialOrd, Debug, Clone, Copy)]
 pub enum Value {
     Two,
@@ -35,48 +39,38 @@ pub struct Deck {
     pub cards: Vec<Card>,
 }
 
+impl Suit {
+    const ALL: [Suit; 4] = [Suit::Heart, Suit::Spade, Suit::Diamond, Suit::Club];
+}
+
+impl Value {
+    const ALL: [Value; 13] = [
+        Value::Two,
+        Value::Three,
+        Value::Four,
+        Value::Five,
+        Value::Six,
+        Value::Seven,
+        Value::Eight,
+        Value::Nine,
+        Value::Ten,
+        Value::Jack,
+        Value::Queen,
+        Value::King,
+        Value::Ace,
+    ];
+}
+
 impl Deck {
     pub fn build() -> Result<Deck, &'static str> {
         let mut cards = Vec::new();
 
-        for i in 0..DECK_LENGTH {
-            let suit: Suit = match i {
-                0..13 => Suit::Club,
-                13..26 => Suit::Diamond,
-                26..39 => Suit::Heart,
-                39..52 => Suit::Spade,
-                _ => {
-                    eprintln!("Error building deck");
-                    process::exit(-1);
-                }
-            };
-
-            let val: Value = match i % NUM_VALUES {
-                0 => Value::Two,
-                1 => Value::Three,
-                2 => Value::Four,
-                3 => Value::Five,
-                4 => Value::Six,
-                5 => Value::Seven,
-                6 => Value::Eight,
-                7 => Value::Nine,
-                8 => Value::Ten,
-                9 => Value::Jack,
-                10 => Value::Queen,
-                11 => Value::King,
-                12 => Value::Ace,
-                _ => {
-                    eprintln!("Error building deck");
-                    process::exit(-1);
-                }
-            };
-
-            cards.push(Card {
-                suit: suit,
-                value: val,
-            });
+        for &suit in Suit::ALL.iter() {
+            for &value in Value::ALL.iter() {
+                cards.push(Card { suit, value });
+            }
         }
-
+        
         Ok(Deck { cards })
     }
 

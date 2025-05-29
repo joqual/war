@@ -12,10 +12,10 @@ fn main() {
         }
     };
 
+    // Clone deck created
     let mut villain_deck: Deck = hero_deck.clone();
 
-    println!{"Shuffling decks ..."}
+    // Shuffle hero and villain decks
     Deck::shuffle(&mut hero_deck.cards);
     Deck::shuffle(&mut villain_deck.cards);
-
 }
