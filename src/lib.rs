@@ -1,9 +1,4 @@
 use rand::seq::SliceRandom;
-use std::process;
-
-// DO NOT CHANGE THESE VALUES
-static DECK_LENGTH: u8 = 52;
-static NUM_VALUES: u8 = 13;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Suit {
@@ -39,10 +34,6 @@ pub struct Deck {
     pub cards: Vec<Card>,
 }
 
-impl Suit {
-    const ALL: [Suit; 4] = [Suit::Heart, Suit::Spade, Suit::Diamond, Suit::Club];
-}
-
 impl Value {
     const ALL: [Value; 13] = [
         Value::Two,
@@ -62,7 +53,7 @@ impl Value {
 }
 
 impl Deck {
-    pub fn build() -> Result<Deck, &'static str> {
+    pub fn build() -> Deck {
         let mut cards = Vec::new();
 
         for &suit in Suit::ALL.iter() {
@@ -71,7 +62,7 @@ impl Deck {
             }
         }
 
-        Ok(Deck { cards })
+        Deck { cards }
     }
 
     pub fn shuffle(cards: &mut Vec<Card>) {
