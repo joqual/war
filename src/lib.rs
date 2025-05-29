@@ -70,7 +70,7 @@ impl Deck {
                 cards.push(Card { suit, value });
             }
         }
-        
+
         Ok(Deck { cards })
     }
 
