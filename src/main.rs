@@ -5,7 +5,7 @@ fn main() {
 
     let mut hero_deck: Deck = Deck::build();
 
-    // Clone deck created for 
+    // Clone deck created for
     let mut villain_deck: Deck = Deck::build();
 
     // Shuffle hero and villain decks
@@ -15,9 +15,20 @@ fn main() {
     println!("Starting War!");
 
     let mut pile: Vec<Card> = Vec::new();
-
+    let mut count: i32 = 0;
     // Enter game loop
     'game: loop {
+        if count > 52 {
+            println!("There has been a dragon invasion!");
+            println!("Hero and Villain's decks have been burned in half by the fire...");
+            let hero_len = hero_deck.cards.len();
+            hero_deck.cards.truncate(hero_len / 2);
+
+            let villain_len = villain_deck.cards.len();
+            villain_deck.cards.truncate(villain_len / 2);
+
+            count = 0;
+        }
 
         let hero_draw: Card = hero_deck.cards.pop().unwrap();
         println!("Hero Drew: {:?}", hero_draw);
@@ -51,11 +62,9 @@ fn main() {
                 }
                 pile.push(hero_deck.cards.pop().unwrap());
                 pile.push(villain_deck.cards.pop().unwrap());
-                
+
                 // and continue as normal
             }
-
-            count += 1;
         }
 
         // win condition
@@ -68,5 +77,7 @@ fn main() {
             }
             break 'game;
         }
+
+        count += 1;
     }
 }
