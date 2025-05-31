@@ -69,6 +69,14 @@ impl Deck {
         let mut rng = rand::rng();
         cards.shuffle(&mut rng)
     }
+
+    pub fn is_empty(self: &Self) -> bool {
+        if self.cards.is_empty() {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy)]
